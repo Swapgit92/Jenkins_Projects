@@ -1,0 +1,22 @@
+# Set Maven path
+export PATH=$PATH:/home/oracle/tools/maven/apache-maven-3.9.12/bin
+
+# Step 1: Go to oracle home
+cd /home/oracle
+
+# Step 2: Create project folder
+mkdir -p demo-project
+cd demo-project
+
+# Step 3: Generate Maven web project
+mvn archetype:generate \
+  -DgroupId=com.demo \
+  -DartifactId=myapp \
+  -DarchetypeArtifactId=maven-archetype-webapp \
+  -DinteractiveMode=false
+
+# Step 4: Enter project
+cd myapp
+
+# List file within My app
+ls -al
