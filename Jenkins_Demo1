@@ -1,0 +1,7 @@
+echo "Welcome to Jenkins"
+date
+whoami
+hostname
+java --version
+
+/home/oracle/tools/maven/apache-maven-3.9.12/bin/mvn --version

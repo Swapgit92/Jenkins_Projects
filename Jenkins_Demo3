@@ -1,0 +1,14 @@
+# Source and backup directory
+SOURCE="/home/oracle/demo-data"
+BACKUP="/home/oracle/backups"
+
+# Create backup folder if not exists
+mkdir -p $BACKUP
+
+# Timestamp
+DATE=$(date +%F-%H-%M-%S)
+
+# Create backup
+tar -czvf $BACKUP/backup-$DATE.tar.gz $SOURCE
+
+echo "Backup created: backup-$DATE.tar.gz"

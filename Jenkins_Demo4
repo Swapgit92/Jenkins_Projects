@@ -1,0 +1,11 @@
+TOMCAT_HOME="/home/oracle/tools/apache-tomcat-9.0.115"
+
+echo "Stopping Tomcat..."
+$TOMCAT_HOME/bin/shutdown.sh
+
+sleep 5
+
+echo "Starting Tomcat..."
+$TOMCAT_HOME/bin/startup.sh
+
+echo "Tomcat restarted successfully"
