@@ -1,0 +1,30 @@
+Deploy WAR File to Tomcat (Manual Deployment)
+🎯 Objective
+
+After Maven build:
+
+Copy .war file to Tomcat webapps directory
+Deploy application
+🧱 Prerequisites
+Maven build working
+Tomcat installed:
+/home/oracle/tools/apache-tomcat-9.0.115
+Jenkins has permission to write to webapps
+🔐 Fix Permissions (Important)
+sudo chown -R jenkins:jenkins /home/oracle/tools/apache-tomcat-9.0.115/webapps
+🔧 Jenkins Build Script
+export MAVEN_HOME=/home/oracle/tools/maven/apache-maven-3.9.12
+export PATH=$MAVEN_HOME/bin:$PATH
+
+cd GRRAS
+
+echo "Building project..."
+mvn clean install
+
+echo "Removing old deployment..."
+rm -rf /home/oracle/tools/apache-tomcat-9.0.115/webapps/GRRAS*
+
+echo "Copying WAR file..."
+cp target/*.war /home/oracle/tools/apache-tomcat-9.0.115/webapps/
+
+echo "Deployment Done ✅"
