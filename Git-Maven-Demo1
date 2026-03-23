@@ -1,0 +1,23 @@
+1️⃣ Create Jenkins Job
+Go to Jenkins Dashboard
+Click New Item
+Enter name: Git-Maven-Demo1
+Select Freestyle Project
+2️⃣ Configure Git
+Go to Source Code Management
+Select Git
+Enter Repository URL:
+https://github.com/Swapgit92/maven-git-demo.git
+Branch:
+*/main
+3️⃣ Add Build Step (Execute Shell)
+export MAVEN_HOME=/home/oracle/tools/maven/apache-maven-3.9.12
+export PATH=$MAVEN_HOME/bin:$PATH
+
+echo "Workspace:"
+pwd
+ls
+
+cd GRRAS
+
+mvn clean install
