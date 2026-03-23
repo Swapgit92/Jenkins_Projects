@@ -2,7 +2,7 @@
 export PATH=$PATH:/home/oracle/tools/maven/apache-maven-3.9.12/bin
 
 # Step 1: Go to oracle home
-cd /home/oracle
+cd /var/lib/jenkins/workspace/Maven1-demo
 
 # Step 2: Create project folder
 mkdir -p demo-project
