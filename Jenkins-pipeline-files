@@ -1,0 +1,166 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Basic Linux Commands') {
+            steps {
+                sh '''
+                echo "Hello from Jenkins 🚀"
+                pwd
+                whoami
+                ls -l
+                '''
+            }
+        }
+    }
+}
+=============================================================================================================
+pipeline {
+    agent any
+
+    stages {
+        stage('Workspace Info') {
+            steps {
+                sh '''
+                echo "Checking workspace..."
+                pwd
+                ls
+                '''
+            }
+        }
+
+        stage('Create Folder') {
+            steps {
+                sh '''
+                mkdir -p demo-project
+                cd demo-project
+                touch file1.txt
+                ls -l
+                '''
+            }
+        }
+    }
+}
+====================================================================================================================================
+
+pipeline {
+    agent any
+
+    environment {
+        NAME = "DevOps Student"
+    }
+
+    stages {
+        stage('Env Demo') {
+            steps {
+                sh '''
+                echo "Hello $NAME"
+                '''
+            }
+        }
+    }
+}
+
+======================================================================================================================================
+pipeline {
+    agent any
+
+    stages {
+        stage('Maven Build') {
+            steps {
+                sh '''
+                export MAVEN_HOME=/home/oracle/tools/maven/apache-maven-3.9.12
+                export PATH=$MAVEN_HOME/bin:$PATH
+
+                mvn -version
+                '''
+            }
+        }
+    }
+}
+
+============================================================================================================
+pipeline {
+    agent any
+
+    stages {
+        stage('Build Project') {
+            steps {
+                sh '''
+                export MAVEN_HOME=/home/oracle/tools/maven/apache-maven-3.9.12
+                export PATH=$MAVEN_HOME/bin:$PATH
+
+                cd GRRAS
+                mvn clean install
+                '''
+            }
+        }
+    }
+}
+==========================================================================================================================================
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                sh '''
+                export MAVEN_HOME=/home/oracle/tools/maven/apache-maven-3.9.12
+                export PATH=$MAVEN_HOME/bin:$PATH
+
+                cd GRRAS
+                mvn clean install
+                '''
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                echo "Cleaning old deployment..."
+                rm -rf /home/oracle/tools/apache-tomcat-9.0.115/webapps/GRRAS*
+
+                echo "Deploying new WAR..."
+                cp GRRAS/target/*.war /home/oracle/tools/apache-tomcat-9.0.115/webapps/
+                '''
+            }
+        }
+    }
+}
+
+==================================================================================================================================
+
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Swapgit92/maven-git-demo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh '''
+                export MAVEN_HOME=/home/oracle/tools/maven/apache-maven-3.9.12
+                export PATH=$MAVEN_HOME/bin:$PATH
+
+                cd GRRAS
+                mvn clean install
+                '''
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                rm -rf /home/oracle/tools/apache-tomcat-9.0.115/webapps/GRRAS*
+                cp GRRAS/target/*.war /home/oracle/tools/apache-tomcat-9.0.115/webapps/
+                '''
+            }
+        }
+    }
+}
