@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                 git branch: 'main', url: 'https://github.com/Swapgit92/maven-git-demo.git'
+            }
+        }
+
+        stage('Maven Build') {
+            steps {
+                sh '''
+                export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+
+                export MAVEN_HOME=/home/oracle/tools/maven/apache-maven-3.9.12
+                export PATH=$MAVEN_HOME/bin:$PATH
+                cd GRRAS
+                mvn clean install
+                '''
+            }
+        }
+
+        stage('Deploy WAR to Docker Tomcat') {
+            steps {
+                sh '''
+                echo "Copying WAR file..."
+
+                scp GRRAS/target/*.war jenki@172.17.0.2:/home/jenki/apache-tomcat-9.0.115/webapps/
+                '''
+            }
+        }
+    }
+}
